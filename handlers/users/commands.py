@@ -2,6 +2,7 @@ import sqlite3
 import openpyxl
 from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandHelp, CommandStart, Command
+from translate_text import translate
 
 from loader import dp, database
 from utils.misc import rate_limit
@@ -12,17 +13,21 @@ from utils.misc import rate_limit
 async def bot_help(message: types.Message):
     text = [
         'Список команд: ',
-        '/start - Начать диалог',
-        '/help - Получить справку'
+        '/help - Получить справку',
+        '/start - Перезапуск бота',
+        '/showalllangs - Показать все доступные языки',
+        '/setmylang ... - Задать мой язык'
     ]
     await message.answer('\n'.join(text))
 
 
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
-    await message.answer(f'Привет, {message.from_user.full_name}!')
+    user_id = message.from_user.id
+    msg = translate(f'Привет, {message.from_user.full_name}!', user_id=user_id)
+    await message.answer(msg)
     try:
-        database.add_user(id=message.from_user.id, language=message.from_user.language_code)
+        database.add_user(id=user_id, language=message.from_user.language_code)
     except sqlite3.IntegrityError:
         pass
 
@@ -35,7 +40,7 @@ async def show_all_languages(message: types.Message):
     Примеры: 
     /setmylang en
     /setmylang eng
-    /setmylang 45""")  # open('data/available_languages.xlsx', 'rb')
+    /setmylang 45""")
     await dp.bot.send_document(message.chat.id, open('data/available_languages.txt', 'rb'))
 
 

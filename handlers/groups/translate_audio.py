@@ -1,6 +1,5 @@
 import os
 from os import path
-import soundfile
 import openpyxl
 import requests
 import speech_recognition
@@ -18,18 +17,6 @@ from loader import dp, bot, database
 ])
 async def translate_audio(message: types.Message):
     """Работает только с .wav расширением и распознаёт только английский язык"""
-    # TODO не работает: soundfile.LibsndfileError: Supported file format but file is malformed.
-    # Получаем информацию о файле
-    # if message.content_type == types.ContentType.VOICE:
-    #     file_info = await bot.get_file(message.voice.file_id)
-    #     file = requests.get(f'https://api.telegram.org/file/bot{BOT_TOKEN}/{file_info.file_path}')
-    #     file_path = path.join(os.getcwd(), 'data', f'{message.from_user.id}.ogg')
-    #     with open(file_path, 'wb') as f:
-    #         f.write(file.content)
-    #     data, sample_rate = soundfile.read(f'data/{message.from_user.id}.ogg')
-    #     soundfile.write(file_path, data, sample_rate)
-    #     file_path = path.join(os.getcwd(), 'data', f'{message.from_user.id}.wav')
-    # else:
     file_info = await bot.get_file(message.audio.file_id)
     # Скачиваем файл себе на компьютер
     file = requests.get(f'https://api.telegram.org/file/bot{BOT_TOKEN}/{file_info.file_path}')

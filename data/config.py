@@ -3,8 +3,7 @@ import os
 
 BOT_TOKEN = '5420378076:AAEO0HOIckXciOSpaLAZ3aohJ7Sj4K4cYE0'
 admins = [
-    1099391285,  # Никита
-    868136575  # Кирилл
+    1099391285,  # Мой телеграм id
 ]
 
 ip = os.getenv("ip")

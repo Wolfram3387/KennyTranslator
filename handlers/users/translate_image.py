@@ -2,9 +2,7 @@ from aiogram import types
 import pytesseract
 import cv2
 import os
-
 from googletrans import Translator
-
 from filters.all_filters import IsPrivate
 from loader import dp, database
 

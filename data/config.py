@@ -1,7 +1,7 @@
 import os
 
 
-BOT_TOKEN = '5420378076:AAEO0HOIckXciOSpaLAZ3aohJ7Sj4K4cYE0'
+BOT_TOKEN = ''
 admins = [
     1099391285,  # Мой телеграм id
 ]
